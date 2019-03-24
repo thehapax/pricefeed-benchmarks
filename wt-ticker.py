@@ -1,5 +1,4 @@
 from websocket import create_connection as wss  # handshake to node
-import asyncio
 import time
 from json import dumps as json_dumps
 from json import loads as json_loads
