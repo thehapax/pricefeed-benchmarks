@@ -67,24 +67,20 @@ async def ticker_loop():
 
     
 def loop_test():
-    asyncio.get_event_loop().run_until_complete(ticker_loop())    
+    asyncio.get_event_loop().run_until_complete(ticker_loop())
 
 
 def single_test():
     start = time.time()
-    
-    tasks = [
-        asyncio.ensure_future(ticker())
-    ]
-    asyncio.get_event_loop().run_until_complete(asyncio.wait(tasks))
-    
+    asyncio.get_event_loop().run_until_complete(ticker())
     end = time.time()
     print("Total time: {}".format(end - start))
-    
+        
 
     
 if __name__ == "__main__":
 
     single_test()
     print("----------------\n")
-#    loop_test()
+    print("----------------\n")
+    loop_test()
