@@ -110,7 +110,7 @@ if __name__ == "__main__":
 
     single_test()
     print("----------------\n")
-#    loop_test()
+    loop_test()
 
 
 
