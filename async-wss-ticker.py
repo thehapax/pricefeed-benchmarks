@@ -50,6 +50,7 @@ async def ticker():
 async def ticker_loop():
     async with websockets.connect(node_url, ssl=ssl_context) as websocket:
         count = 1
+        total_time = 0
         while count < MAX_ITER:
             try:
                 start = time.time()
@@ -59,18 +60,22 @@ async def ticker_loop():
                 ret = json_loads(response)
                 print(ret["result"])
                 end = time.time()
-                print("Total time: {} \n".format(end - start))
+                runtime = end -start
+                print("Total time: {} \n".format(runtime))
                 count += 1
+                total_time += runtime                
             except Exception as e:
-                print('Connection Closed')
+                print('Connection Closed' + e)
                 is_alive = False
-                break
-
+                break;
+        return total_time
+    
     
 def loop_test():
-    asyncio.get_event_loop().run_until_complete(ticker_loop())
+    total_time = asyncio.get_event_loop().run_until_complete(ticker_loop())
+    return total_time
 
-
+    
 def single_test():
     start = time.time()
     asyncio.get_event_loop().run_until_complete(ticker())
@@ -84,4 +89,6 @@ if __name__ == "__main__":
     single_test()
     print("----------------\n")
     print("----------------\n")
-    loop_test()
+    total_time = loop_test()
+    average_time = total_time/MAX_ITER
+    print("\n\nAverage Run Time: {} \n".format(average_time))

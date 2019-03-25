@@ -1,4 +1,3 @@
-import asyncio
 from bitshares.bitshares import BitShares
 from bitshares.market import Market
 import time, os
@@ -12,14 +11,12 @@ TEST_CONFIG = {
 KEYS = [os.environ['DEXBOT_TEST_WIF']]
 
 
-async def ticker_test():
+def ticker_test():
     start = time.time()
     bitshares = BitShares(node=TEST_CONFIG['node'], keys=KEYS)
-
     market = Market('OPEN.BTC:BTS', bitshares_instance=bitshares)
     ticker = market.ticker()
     print(ticker)
-
     end = time.time()
     print("Total time: {}".format(end - start))
 
@@ -28,6 +25,7 @@ def loop_test():
     bitshares = BitShares(node=TEST_CONFIG['node'], keys=KEYS)
     market = Market('OPEN.BTC:BTS', bitshares_instance=bitshares)
     count = 1
+    total_time = 0
     while count < MAX_ITER:
         try:
             start = time.time()
@@ -36,18 +34,23 @@ def loop_test():
             print(ticker)
 
             end = time.time()
-            print("Total time: {}".format(end - start))
+            runtime = end -start
+            print("Total time: {}".format(runtime))
 
             count +=1
+            total_time += runtime
         except Exception as e:
             print(e)
             print('Connection Closed')
             break
-
+    return total_time
         
 
 if __name__ == "__main__":
-    asyncio.get_event_loop().run_until_complete(ticker_test())
+    ticker_test()
     print("----------------\n")    
     print("----------------\n")
-    loop_test()
+    total_time = loop_test()
+
+    average_time = total_time/MAX_ITER
+    print("\n\nAverage Run Time: {} \n".format(average_time))
