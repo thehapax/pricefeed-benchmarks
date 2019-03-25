@@ -9,11 +9,11 @@ import websocket
 
 from json import dumps as json_dumps
 from json import loads as json_loads
+from config import MAX_ITER, node_url
 
 logger = logging.getLogger(__name__)
 is_alive = True
-node_url = "wss://api.fr.bitsharesdex.com/ws" 
-#url = "wss://echo.websocket.org/"
+
 
 def wss_handshake(node):
     global ws
@@ -63,7 +63,8 @@ async def alive():
 
 async def async_processing():
     print("inside async websockets")
-    while True:
+    count = 1
+    while count < MAX_ITER:
         try:
             start = time.time()
             query = wss_send_ticker()
@@ -72,6 +73,7 @@ async def async_processing():
             print(message)
             end = time.time()
             print("Total time: {} \n".format(end - start))
+            count += 1
         except websocket._exceptions.WebSocketBadStatusException:            
             print('ConnectionClosed')
             is_alive = False

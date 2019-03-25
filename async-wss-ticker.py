@@ -11,10 +11,9 @@ from json import dumps as json_dumps
 from json import loads as json_loads
 
 import time
+from config import MAX_ITER, node_url
 
 ssl_context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS)
-node_url = "wss://api.fr.bitsharesdex.com/ws" 
-
 
 def wss_send_ticker():
     ret = wss_send(
@@ -50,7 +49,8 @@ async def ticker():
 
 async def ticker_loop():
     async with websockets.connect(node_url, ssl=ssl_context) as websocket:
-        while True:
+        count = 1
+        while count < MAX_ITER:
             try:
                 start = time.time()
                 query = wss_send_ticker()
@@ -60,6 +60,7 @@ async def ticker_loop():
                 print(ret["result"])
                 end = time.time()
                 print("Total time: {} \n".format(end - start))
+                count += 1
             except Exception as e:
                 print('Connection Closed')
                 is_alive = False
