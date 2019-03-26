@@ -2,6 +2,7 @@
 # original source : https://github.com/aaugustin/websockets/blob/master/example/secure_client.py
 # https://github.com/aaugustin/websockets
 # the only library to handle backpressure correctly
+import cProfile
 
 import asyncio
 import pathlib
@@ -83,12 +84,14 @@ def single_test():
     print("Total time: {}".format(end - start))
         
 
-    
-if __name__ == "__main__":
-
+def run_tests():
     single_test()
     print("----------------\n")
     print("----------------\n")
     total_time = loop_test()
     average_time = total_time/MAX_ITER
     print("\n\nAverage Run Time: {} \n".format(average_time))
+    
+    
+if __name__ == "__main__":
+    cProfile.run('run_tests()', 'async-wss-stats')

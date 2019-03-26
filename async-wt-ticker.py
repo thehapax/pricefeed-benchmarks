@@ -1,8 +1,9 @@
 #!/usr/bin/env python
+import cProfile
+
 import asyncio
 import logging
 import time  
-import websockets
 
 from websocket import create_connection as wss
 import websocket
@@ -62,7 +63,7 @@ async def alive():
 
 
 async def async_processing():
-    print("inside async websockets")
+    print("inside async websocket")
     count = 1
     while count < MAX_ITER:
         try:
@@ -108,11 +109,15 @@ def single_test():
     print("Total time: {}".format(end - start)) 
    
 
-if __name__ == "__main__":
-
+def run_tests():
     single_test()
     print("----------------\n")
     loop_test()
+    
+    
+if __name__ == "__main__":
+    cProfile.run('run_tests()', 'websocket-stats')
+    
 
 
 

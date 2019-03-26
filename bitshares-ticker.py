@@ -1,3 +1,5 @@
+import cProfile
+
 from bitshares.bitshares import BitShares
 from bitshares.market import Market
 import time, os
@@ -46,7 +48,7 @@ def loop_test():
     return total_time
         
 
-if __name__ == "__main__":
+def run_tests():
     ticker_test()
     print("----------------\n")    
     print("----------------\n")
@@ -54,3 +56,7 @@ if __name__ == "__main__":
 
     average_time = total_time/MAX_ITER
     print("\n\nAverage Run Time: {} \n".format(average_time))
+    
+
+if __name__ == "__main__":
+    cProfile.run('run_tests()', 'bitshares-stats')
