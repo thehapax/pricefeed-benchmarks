@@ -9,13 +9,10 @@ from config import MAX_ITER, node_url
 TEST_CONFIG = {
     'node': node_url
 }
-# User needs to put a key in
-KEYS = [os.environ['DEXBOT_TEST_WIF']]
-
 
 def ticker_test():
     start = time.time()
-    bitshares = BitShares(node=TEST_CONFIG['node'], keys=KEYS)
+    bitshares = BitShares(node=TEST_CONFIG['node'])
     market = Market('OPEN.BTC:BTS', bitshares_instance=bitshares)
     ticker = market.ticker()
     print(ticker)
@@ -24,7 +21,7 @@ def ticker_test():
 
     
 def loop_test():
-    bitshares = BitShares(node=TEST_CONFIG['node'], keys=KEYS)
+    bitshares = BitShares(node=TEST_CONFIG['node'])
     market = Market('OPEN.BTC:BTS', bitshares_instance=bitshares)
     count = 1
     total_time = 0
