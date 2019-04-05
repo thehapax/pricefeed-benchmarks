@@ -23,3 +23,10 @@ Bitshares module
 
 `$python3 bitshares-ticker.py`
 </ul>
+
+<ul>
+UV loop module makes asyncio 2-4x faster. appears to be effective the greater the number of requests per second. 
+<li> Source: https://github.com/MagicStack/uvloop
+
+`$python3 uvloop-wss.py`
+</ul>
