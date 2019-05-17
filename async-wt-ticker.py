@@ -63,7 +63,8 @@ async def alive():
 
 
 async def async_processing():
-    print("inside async websocket")
+    # not really async because no await
+    print("inside websocket")
     count = 1
     while count < MAX_ITER:
         try:
