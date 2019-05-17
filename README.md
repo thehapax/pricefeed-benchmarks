@@ -1,7 +1,9 @@
 # pricefeed-benchmarks
 
 Here you will find some benchmark speed tests for single and multple price queries to a bitshares
-nodes using websocket, websockets, and pybitshares. 
+nodes using websocket, websockets, and pybitshares.
+
+See TDD.md for technical design docs. 
 
 <ul>
 Websockets
