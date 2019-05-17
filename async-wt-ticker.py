@@ -3,7 +3,7 @@ import cProfile
 
 import asyncio
 import logging
-import time  
+import time
 
 from websocket import create_connection as wss
 import websocket
@@ -69,7 +69,7 @@ async def async_processing():
         try:
             start = time.time()
             query = wss_send_ticker()
-            ws.send(query)
+            await ws.send(query)
             message = wss_receive()
             print(message)
             end = time.time()
@@ -85,7 +85,7 @@ async def ticker():
     try:
         wss_handshake(node_url)
         query = wss_send_ticker()
-        ws.send(query)
+        await ws.send(query)
         response =  ws.recv()
         ret = json_loads(response)
         print(ret["result"])
@@ -103,7 +103,7 @@ def loop_test():
         
 
 def single_test():
-    start = time.time()    
+    start = time.time()
     asyncio.get_event_loop().run_until_complete(ticker())
     end = time.time()
     print("Total time: {}".format(end - start)) 
@@ -112,7 +112,7 @@ def single_test():
 def run_tests():
     single_test()
     print("----------------\n")
-    loop_test()
+#    loop_test()
     
     
 if __name__ == "__main__":

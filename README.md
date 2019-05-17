@@ -23,3 +23,10 @@ Bitshares module
 
 `$python3 bitshares-ticker.py`
 </ul>
+
+<ul>To view stats, Install snakeviz
+
+`$pip install snakeviz`
+
+`$snakeviz <<file generated from running python script>>`
+
